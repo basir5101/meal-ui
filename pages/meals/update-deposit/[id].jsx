@@ -61,9 +61,8 @@ class Deposit extends Component {
       this.state.meal_details,
       this.props.meal.id
     );
-    console.log(data);
     if (data.id) {
-      this.props.router.push("/meals/october");
+      this.props.router.push(`/meals/${data.slug}`);
     }
   };
 
@@ -76,7 +75,7 @@ class Deposit extends Component {
             <div className="bg-white w-full shadow rounded p-8 sm:p-12 -mt-72">
               <p className="text-3xl font-bold text-indigo-600 leading-7 text-center">
                 {this.props.meal.title}{" "}
-                <span className="text-blue-600">- Update Meal</span>
+                <span className="text-blue-600">- Update Deposit</span>
               </p>
               <form onSubmit={(e) => e.preventDefault()}>
                 {this.state.meal_details.map((name, nameIndex) => (

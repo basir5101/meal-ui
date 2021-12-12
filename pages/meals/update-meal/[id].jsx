@@ -6,6 +6,7 @@ import Moment from "react-moment";
 import moment from "moment";
 import ApiClient from "../../../components/api/ApiClient";
 import withRouter from "next/dist/client/with-router";
+import { getSession } from "next-auth/react";
 moment().format();
 
 class Meal extends Component {
@@ -61,9 +62,8 @@ class Meal extends Component {
       this.state.meal_details,
       this.props.meal.id
     );
-    console.log(data);
     if (data.id) {
-      this.props.router.push("/meals/october");
+      this.props.router.push(`/meals/${data.slug}`);
     }
   };
 
@@ -167,8 +167,16 @@ export default withRouter(Meal);
 
 export async function getServerSideProps(context) {
   const id = context.query.id;
-  const res = await fetch(`http://localhost:1337/meals/${id}`);
-  const data = await res.json();
+  const data = await ApiClient.getMealById(id);
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+    };
+  }
   return {
     props: {
       meal: data,

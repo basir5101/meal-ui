@@ -12,6 +12,11 @@ export default function meal(props) {
             {props.meal.title}
           </h1>
           <div>
+            <Link href={`/meals/update-user/${props.meal.id}`}>
+              <a className="text-gray-100 ml-4 px-3 py-2 inline-block  bg-blue-600 rounded-md text-xl hover:bg-blue-500 transform transition ">
+                Add New User &rarr;
+              </a>
+            </Link>
             <Link href={`/meals/update-meal/${props.meal.id}`}>
               <a className="text-gray-100 ml-4 px-3 py-2 inline-block  bg-blue-600 rounded-md text-xl hover:bg-blue-500 transform transition ">
                 Add New Meal &rarr;
@@ -25,11 +30,6 @@ export default function meal(props) {
             <Link href={`/meals/update-deposit/${props.meal.id}`}>
               <a className="text-gray-100 ml-4 px-3 py-2 inline-block  bg-blue-600 rounded-md text-xl hover:bg-blue-500 transform transition ">
                 Add New Deposit &rarr;
-              </a>
-            </Link>
-            <Link href={`/meals/update-user/${props.meal.id}`}>
-              <a className="text-gray-100 ml-4 px-3 py-2 inline-block  bg-blue-600 rounded-md text-xl hover:bg-blue-500 transform transition ">
-                Add New User &rarr;
               </a>
             </Link>
           </div>

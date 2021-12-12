@@ -37,7 +37,6 @@ class Name extends Component {
     this.setState({
       meal_details: this.state.names,
     });
-    console.log(this.state.names);
   };
 
   removeShopping = (shopIndex) => {
@@ -53,7 +52,7 @@ class Name extends Component {
       this.props.meal.id
     );
     if (data.id) {
-      this.props.router.push("/meals/october");
+      this.props.router.push(`/meals/${data.slug}`);
     }
   };
 

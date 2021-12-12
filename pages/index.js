@@ -3,7 +3,6 @@ import Link from "next/link";
 import CommonLayout from "../components/layout/CommonLayout";
 
 export default function Home(props) {
-  console.log(props);
   return (
     <CommonLayout className="flex flex-col items-center justify-center min-h-screen py-2">
       <Head>
