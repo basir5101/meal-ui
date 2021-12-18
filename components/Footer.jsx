@@ -5,7 +5,6 @@ import { signOut, useSession } from "next-auth/react";
 
 export default function Footer() {
   const { data: session } = useSession();
-  console.log(session);
   return (
     <footer>
       <nav className="bg-gray-600 mt-96 h-52 text-white py-3">

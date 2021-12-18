@@ -5,7 +5,6 @@ import { signOut, useSession } from "next-auth/react";
 
 export default function Navbar() {
   const { data: session } = useSession();
-  console.log(session);
   return (
     <div>
       <nav className="bg-indigo-900 text-white py-3">
@@ -51,9 +50,9 @@ export default function Navbar() {
                 </span>
               </a>
             </Link>
-            <Link href="/users/me">
+            <Link href="/user/me">
               <a className="mx-5 py-2 px-2 text-gray-50 rounded-t-md inline-block hover:bg-indigo-800 transition font-semibold bg-indigo-600">
-                <span onClick={() => signOut()} className="flex">
+                <span className="flex">
                   <UserMinus />
                   <span className="ml-2"> {session.user.name} </span>
                 </span>

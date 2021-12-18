@@ -7,15 +7,16 @@ import withRouter from "next/dist/client/with-router";
 import CommonLayout from "../../../components/layout/CommonLayout";
 moment().format();
 
-class Shopping extends Component {
+class ExtraCost extends Component {
   constructor(props) {
+    console.log(props);
     super(props);
     this.state = {
-      shoppings: props.meal.shoppings || [
+      extraCost: props.meal.extraCost || [
         {
           date: null,
           description: "fish = 200, vegetables = 100 ",
-          cost: 0,
+          amount: 0,
         },
       ],
     };
@@ -25,34 +26,34 @@ class Shopping extends Component {
 
   handleShoppingInputs = (event, shopIndex) => {
     let { name, value } = event.target;
-    this.state.shoppings[shopIndex][name] = value;
+    this.state.extraCost[shopIndex][name] = value;
     this.setState({
-      shoppings: this.state.shoppings,
+      extraCost: this.state.extraCost,
     });
   };
 
   handleAddNewShopping = () => {
-    const array = this.state.shoppings;
+    const array = this.state.extraCost;
     array.push({
       date: moment(new Date()).format("YYYY-MM-DD"),
-      description: "fish = 200, vegetables = 100 ",
-      cost: 0,
+      description: "",
+      amount: 0,
     });
     this.setState({
-      meal_details: this.state.shoppings,
+      meal_details: this.state.extraCost,
     });
   };
 
   removeShopping = (shopIndex) => {
-    this.state.shoppings.splice(shopIndex, 1);
+    this.state.extraCost.splice(shopIndex, 1);
     this.setState({
-      shoppings: this.state.shoppings,
+      extraCost: this.state.extraCost,
     });
   };
 
   handleSubmit = async () => {
-    const data = await ApiClient.updateShoppings(
-      this.state.shoppings,
+    const data = await ApiClient.updateExtraCost(
+      this.state.extraCost,
       this.props.meal.id
     );
     if (data.id) {
@@ -82,11 +83,11 @@ class Shopping extends Component {
                         Description
                       </label>
                       <label className="w-1/2 text-indigo-700 font-semibold leading-none">
-                        Cost
+                        Amount
                       </label>
                     </div>
 
-                    {this.state.shoppings.map((shopping, shopIndex) => (
+                    {this.state.extraCost.map((shopping, shopIndex) => (
                       <div
                         key={shopIndex}
                         className="w-full flex md:ml-6 md:mt-0 transition"
@@ -107,15 +108,16 @@ class Shopping extends Component {
                             this.handleShoppingInputs(e, shopIndex)
                           }
                           defaultValue={shopping.description}
+                          placeholder="Ex: electric bill, cooker bill ...."
                           className="w-1/2 mr-2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 mt-4 bg-gray-100 border rounded border-gray-200"
                         />
                         <input
                           type="number"
-                          name="cost"
+                          name="amount"
                           onChange={(e) =>
                             this.handleShoppingInputs(e, shopIndex)
                           }
-                          defaultValue={shopping.cost}
+                          defaultValue={shopping.amount}
                           className="w-1/2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 mt-4 bg-gray-100 border rounded border-gray-200"
                         />
                         <button
@@ -153,7 +155,7 @@ class Shopping extends Component {
   }
 }
 
-export default withRouter(Shopping);
+export default withRouter(ExtraCost);
 
 export async function getServerSideProps(context) {
   const id = context.query.id;

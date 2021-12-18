@@ -52,7 +52,7 @@ class Name extends Component {
       this.props.meal.id
     );
     if (data.id) {
-      this.props.router.push(`/meals/${data.slug}`);
+      this.props.router.push(`/meals/update-meal/${data.id}`);
     }
   };
 

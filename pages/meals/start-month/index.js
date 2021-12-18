@@ -22,7 +22,7 @@ class StartMonth extends Component {
     e.preventDefault();
     const data = await ApiClient.saveMonth(this.state.title);
     if (data) {
-      this.props.router.push(`/meals/${data.slug}`);
+      this.props.router.push(`/meals/update-user/${data.id}`);
     }
   };
 
@@ -33,11 +33,11 @@ class StartMonth extends Component {
           <h2 className="text-4xl text-center">Start Your months</h2>
           <div className="max-w-5xl mx-auto px-6 sm:px-6 lg:px-8 mb-12">
             <form>
-              <div className="duration-500 transition">
+              <div className="duration-500 transition text-center">
                 <input
                   type="text"
                   name="title"
-                  placeholder="inter month"
+                  placeholder="write month hear..."
                   onChange={this.handleMealInputs}
                   className="w-1/2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 mt-4  border rounded border-gray-200"
                 />
@@ -59,15 +59,3 @@ class StartMonth extends Component {
 }
 
 export default withRouter(StartMonth);
-
-export async function getServerSideProps(context) {
-  const slug = context.query.slug;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/meals`);
-  const data = await res.json();
-
-  return {
-    props: {
-      meal: data[0],
-    }, // will be passed to the page component as props
-  };
-}

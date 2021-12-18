@@ -78,6 +78,35 @@ class ApiClient {
     }
   }
 
+  async updateExtraCost(args, id) {
+    const headers = await this.getAuthHeader();
+    try {
+      let { data } = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/meals/${id}`,
+        {
+          extraCost: args,
+        },
+        {
+          headers,
+        }
+      );
+      return data;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async getMonthsByUser(userId) {
+    try {
+      let { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/meals/${id}`
+      );
+      return data;
+    } catch (error) {
+      return false;
+    }
+  }
+
   async updateNames(args, id) {
     const headers = await this.getAuthHeader();
     console.log(args);
