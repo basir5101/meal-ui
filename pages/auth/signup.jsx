@@ -1,23 +1,27 @@
 import { Component } from "react";
 import React, { useState } from "react";
-import { Minus, Plus } from "react-feather";
 import moment from "moment";
 import withRouter from "next/dist/client/with-router";
 import ApiClient from "../../components/api/ApiClient";
 import CommonLayout from "../../components/layout/CommonLayout";
+import Link from "next/link";
+import Loading from "../../components/helper/Loading";
+import ErrorCard from "../../components/helper/ErrorCard";
+import { getCookieParser } from "next/dist/server/api-utils";
+import cookie from "js-cookie";
 moment().format();
 
 class Singup extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       username: "",
       email: "",
       password: "",
 
       registered: false,
-      error: props.error,
+      submitted: false,
+      error: false,
     };
 
     this.submitForm = this.submitForm.bind(this);
@@ -25,19 +29,26 @@ class Singup extends Component {
   }
 
   submitForm = async (event) => {
+    this.setState({
+      submitted: true,
+    });
     event.preventDefault();
-    try {
-      await ApiClient.registerUser({
-        username: this.state.username,
-        email: this.state.email,
-        password: this.state.password,
-      });
-    } catch (error) {
-      this.setState({ error: true });
-      return;
-    }
 
-    this.setState({ registered: true });
+    const data = await ApiClient.registerUser({
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password,
+    });
+    console.log(data);
+    if (!data.jwt) {
+      console.log("hi");
+      this.setState({
+        submitted: false,
+        error: true,
+      });
+    } else {
+      this.props.router.push("/auth/login?message=Registration Success");
+    }
   };
 
   handleInputs = (event) => {
@@ -104,13 +115,27 @@ class Singup extends Component {
                     </div>
                   </div>
                 </div>
+                {this.state.error && (
+                  <ErrorCard
+                    title="Registration Failed"
+                    description="please try again later"
+                  />
+                )}
                 <div className="flex items-center justify-center w-full">
                   <button
                     onClick={this.submitForm}
-                    className="mt-9 font-semibold leading-none text-white py-4 px-10 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none"
+                    disabled={this.state.submitted}
+                    className="mt-9 disabled:bg-gray-500 font-semibold leading-none text-white py-4 px-10 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none"
                   >
                     Sign Up
                   </button>
+
+                  {this.state.submitted && <Loading />}
+                  <Link href="/auth/login">
+                    <a className="text-sm mt-9 font-semibold leading-none  py-4 px-10  hover:underline">
+                      Log in
+                    </a>
+                  </Link>
                 </div>
               </form>
             </div>

@@ -14,7 +14,7 @@ class Shopping extends Component {
       shoppings: props.meal.shoppings || [
         {
           date: null,
-          description: "fish = 200, vegetables = 100 ",
+          description: " ",
           cost: 0,
         },
       ],
@@ -35,7 +35,7 @@ class Shopping extends Component {
     const array = this.state.shoppings;
     array.push({
       date: moment(new Date()).format("YYYY-MM-DD"),
-      description: "fish = 200, vegetables = 100 ",
+      description: "",
       cost: 0,
     });
     this.setState({
@@ -103,6 +103,7 @@ class Shopping extends Component {
                         <input
                           type="description"
                           name="text"
+                          placeholder="fish = 200, vegetables = 100"
                           onChange={(e) =>
                             this.handleShoppingInputs(e, shopIndex)
                           }

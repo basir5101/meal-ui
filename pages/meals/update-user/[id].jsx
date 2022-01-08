@@ -33,6 +33,12 @@ class Name extends Component {
     const array = this.state.names;
     array.push({
       name: "",
+      values: [
+        {
+          date: moment(new Date()).format("YYYY-MM-DD"),
+          meal: 0,
+        },
+      ],
     });
     this.setState({
       meal_details: this.state.names,

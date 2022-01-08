@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function MealRate({ meal }) {
-  console.log(meal);
   let totalCost = 0;
   if (meal.shoppings.length > 0) {
     totalCost = meal.shoppings

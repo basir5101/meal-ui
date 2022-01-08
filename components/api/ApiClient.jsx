@@ -31,9 +31,7 @@ class ApiClient {
         }
       );
       return data;
-    } catch (error) {
-      return console.log(error);
-    }
+    } catch (error) {}
   }
 
   async getMealById(id) {
@@ -42,6 +40,13 @@ class ApiClient {
     return data;
   }
 
+  async getMealByUserId(id) {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/meals?user.id=${id}`
+    );
+    const data = await res.json();
+    return data;
+  }
   async updateMeals(args, id) {
     const headers = await this.getAuthHeader();
     try {
@@ -109,7 +114,6 @@ class ApiClient {
 
   async updateNames(args, id) {
     const headers = await this.getAuthHeader();
-    console.log(args);
     try {
       let { data } = await axios.put(
         `${process.env.NEXT_PUBLIC_API_URL}/meals/${id}`,
@@ -146,7 +150,6 @@ class ApiClient {
 
   async registerUser(args) {
     const headers = await this.getAuthHeader();
-    console.log(headers);
     try {
       let { data } = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/local/register`,
@@ -155,10 +158,23 @@ class ApiClient {
           headers: headers,
         }
       );
-      console.log(data);
+      return data;
     } catch (error) {
-      console.log(error);
+      return error;
     }
+  }
+  async resetPassword(args) {
+    const headers = await this.getAuthHeader();
+
+    let { data } = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/forgot-password`,
+      {
+        email: args.email,
+      },
+      {
+        headers: headers,
+      }
+    );
   }
 }
 

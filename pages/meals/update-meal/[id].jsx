@@ -1,7 +1,14 @@
 import { Component } from "react";
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowUp, Edit, Minus, Plus } from "react-feather";
+import {
+  ArrowDown,
+  ArrowRight,
+  ArrowUp,
+  Edit,
+  Minus,
+  Plus,
+} from "react-feather";
 import Moment from "react-moment";
 import moment from "moment";
 import ApiClient from "../../../components/api/ApiClient";
@@ -84,66 +91,77 @@ class Meal extends Component {
                   {this.state.meal_details.map((name, nameIndex) => (
                     <div
                       key={nameIndex}
-                      className="items-center transition mt-8 group border border-indigo-100"
+                      className="m-8 rounded overflow-hidden"
                     >
-                      <div className="flex px-5 hover:transition bg-indigo-100 py-2 justify-between">
-                        <p className="text-2xl font-bold text-blue-600 leading-7">
-                          {nameIndex + 1}. {name.name}
-                        </p>
-                        <p className="hover:rotate-180 transition">
-                          <ArrowUp />
-                        </p>
-                      </div>
-                      <div className="duration-500 transition">
-                        <div className="w-full mt-4 text-center flex">
-                          <label className="w-1/2 font-semibold text-indigo-700 leading-none">
-                            Date
-                          </label>
-                          <label className="w-1/2 text-indigo-700 font-semibold leading-none">
-                            Meal
-                          </label>
-                        </div>
-
-                        {name.values.map((value, mealIndex) => (
-                          <div
-                            key={mealIndex}
-                            className="w-full flex md:ml-6 md:mt-0 transition"
-                          >
-                            <input
-                              type="date"
-                              defaultValue={value.date}
-                              name="date"
-                              onChange={(e) =>
-                                this.handleMealInputs(e, nameIndex, mealIndex)
-                              }
-                              className="w-1/2 mr-2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 mt-4 bg-gray-100 border rounded border-gray-200"
-                            />
-                            <input
-                              type="number"
-                              name="meal"
-                              defaultValue={value.meal}
-                              onChange={(e) =>
-                                this.handleMealInputs(e, nameIndex, mealIndex)
-                              }
-                              className="w-1/2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 mt-4 bg-gray-100 border rounded border-gray-200"
-                            />
-                            <button
-                              onClick={() =>
-                                this.removeMeal(nameIndex, mealIndex)
-                              }
-                              className="text-red-600  my-5"
-                            >
-                              <Minus />
-                            </button>
+                      <div className="group outline-none" tabIndex="1">
+                        <div className="group bg-indigo-50 flex justify-between px-4 py-3 items-center text-indigo-900 font-semibold text-xl transition ease duration-500 cursor-pointer pr-10 relative">
+                          <div className="group-focus:text-blue-800 transition ease duration-500">
+                            {nameIndex + 1}. {name.name}
                           </div>
-                        ))}
-                        <div className="w-full text-right">
-                          <button
-                            onClick={(e) => this.handleAddNewMeal(nameIndex)}
-                            className="bg-gradient-to-b from-blue-800 m-1 p-2 to-blue-600 text-white"
-                          >
-                            <Plus />
-                          </button>
+                        </div>
+                        <div className="bg-indigo-50 px-4 overflow-hidden ease duration-500">
+                          <div className="duration-500 transition">
+                            <div className="w-full mt-4 text-center flex">
+                              <label className="w-1/2 font-semibold text-indigo-700 leading-none">
+                                Date
+                              </label>
+                              <label className="w-1/2 text-indigo-700 font-semibold leading-none">
+                                Meal
+                              </label>
+                            </div>
+
+                            {name.values.map((value, mealIndex) => (
+                              <div
+                                key={mealIndex}
+                                className="w-full flex md:ml-6 md:mt-0 transition"
+                              >
+                                <input
+                                  type="date"
+                                  defaultValue={value.date}
+                                  name="date"
+                                  onChange={(e) =>
+                                    this.handleMealInputs(
+                                      e,
+                                      nameIndex,
+                                      mealIndex
+                                    )
+                                  }
+                                  className="w-1/2 mr-2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 mt-4 bg-gray-100 border rounded border-gray-200"
+                                />
+                                <input
+                                  type="number"
+                                  name="meal"
+                                  defaultValue={value.meal}
+                                  onChange={(e) =>
+                                    this.handleMealInputs(
+                                      e,
+                                      nameIndex,
+                                      mealIndex
+                                    )
+                                  }
+                                  className="w-1/2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 mt-4 bg-gray-100 border rounded border-gray-200"
+                                />
+                                <button
+                                  onClick={() =>
+                                    this.removeMeal(nameIndex, mealIndex)
+                                  }
+                                  className="text-red-600  my-5 pr-6"
+                                >
+                                  <Minus />
+                                </button>
+                              </div>
+                            ))}
+                            <div className="w-full text-right">
+                              <button
+                                onClick={(e) =>
+                                  this.handleAddNewMeal(nameIndex)
+                                }
+                                className="bg-gradient-to-b from-blue-800 m-1 p-2 to-blue-600 text-white"
+                              >
+                                <Plus />
+                              </button>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

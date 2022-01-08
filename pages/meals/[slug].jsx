@@ -14,7 +14,7 @@ export default function meal(props) {
           </h1>
           <div>
             <Link href={`/meals/update-user/${props.meal.id}`}>
-              <a className="text-indigo-600 border shadow-lg border-indigo-600 ml-4 px-3 py-2 inline-block  rounded-md text-xl hover:text-white hover:bg-indigo-500 transform transition ">
+              <a className="text-indigo-600 border shadow-lg border-indigo-600 ml-4 px-3 py-2 my-2 inline-block  rounded-md text-xl hover:text-white hover:bg-indigo-500 transform transition ">
                 <span className="flex py-6 px-10 justify-center text-center items-center">
                   <User />
                   <span className="font-semibold ml-2 text-2xl">Users</span>
@@ -22,7 +22,7 @@ export default function meal(props) {
               </a>
             </Link>
             <Link href={`/meals/update-meal/${props.meal.id}`}>
-              <a className="text-indigo-600 shadow-lg border border-indigo-600 ml-4 px-3 py-2 inline-block  rounded-md text-xl hover:text-white hover:bg-indigo-500 transform transition ">
+              <a className="text-indigo-600 shadow-lg border border-indigo-600 ml-4 px-3 py-2 my-2 inline-block  rounded-md text-xl hover:text-white hover:bg-indigo-500 transform transition ">
                 <span className="flex py-6 px-10 justify-center text-center items-center">
                   <User />
                   <span className="font-semibold ml-2 text-2xl">Meals</span>
@@ -30,7 +30,7 @@ export default function meal(props) {
               </a>
             </Link>
             <Link href={`/meals/update-shopping/${props.meal.id}`}>
-              <a className="text-indigo-600 border shadow-lg border-indigo-600 ml-4 px-3 py-2 inline-block  rounded-md text-xl hover:text-white hover:bg-indigo-500 transform transition ">
+              <a className="text-indigo-600 border shadow-lg border-indigo-600 ml-4 px-3 py-2 my-2 inline-block  rounded-md text-xl hover:text-white hover:bg-indigo-500 transform transition ">
                 <span className="flex py-6 px-10 justify-center text-center items-center">
                   <User />
                   <span className="font-semibold ml-2 text-2xl">Shoppings</span>
@@ -38,7 +38,7 @@ export default function meal(props) {
               </a>
             </Link>
             <Link href={`/meals/update-deposit/${props.meal.id}`}>
-              <a className="shadow-lg text-indigo-600 border  border-indigo-600 ml-4 px-3 py-2 inline-block  rounded-md text-xl hover:text-white hover:bg-indigo-500 transform transition ">
+              <a className="shadow-lg text-indigo-600 border  border-indigo-600 ml-4 px-3 py-2 my-2 inline-block  rounded-md text-xl hover:text-white hover:bg-indigo-500 transform transition ">
                 <span className="flex py-6 px-10 justify-center text-center items-center">
                   <User />
                   <span className="font-semibold ml-2 text-2xl">Deposits</span>
@@ -46,7 +46,7 @@ export default function meal(props) {
               </a>
             </Link>
             <Link href={`/meals/update-extra-cost/${props.meal.id}`}>
-              <a className="text-indigo-600 shadow-lg border border-indigo-600 ml-4 px-3 py-2 inline-block  rounded-md text-xl hover:text-white hover:bg-indigo-500 transform transition ">
+              <a className="text-indigo-600 shadow-lg border border-indigo-600 ml-4 px-3 py-2 my-2 inline-block  rounded-md text-xl hover:text-white hover:bg-indigo-500 transform transition ">
                 <span className="flex py-6 px-10 justify-center text-center items-center">
                   <User />
                   <span className="font-semibold ml-2 text-2xl">

@@ -1,12 +1,20 @@
 import { getCsrfToken } from "next-auth/react";
 import { getSession } from "next-auth/react";
+import Link from "next/link";
 
-import React, { Component } from "react";
+import React from "react";
+import ErrorCard from "../../components/helper/ErrorCard";
 import CommonLayout from "../../components/layout/CommonLayout";
 
-export default function SignIn({ csrfToken, error }) {
+export default function SignIn({ csrfToken, message }) {
+  console.log(message);
   return (
     <CommonLayout>
+      <ErrorCard
+        classN="text-center font-bold text-3xl text-blue-800"
+        title={message}
+        description="Please Login"
+      />
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="px-8 py-6 mt-4 text-left bg-white shadow-lg">
           <h3 className="text-2xl font-bold text-center">
@@ -43,9 +51,12 @@ export default function SignIn({ csrfToken, error }) {
                 >
                   Login
                 </button>
-                <a href="#" className="text-sm text-blue-600 hover:underline">
-                  Forgot password?
-                </a>
+
+                <Link href="/auth/signup">
+                  <a className="text-sm text-blue-600 hover:underline">
+                    Create new account
+                  </a>
+                </Link>
               </div>
             </div>
           </form>
@@ -56,10 +67,7 @@ export default function SignIn({ csrfToken, error }) {
 }
 
 export async function getServerSideProps(context) {
-  let hasError = false;
-  if (context.query && context.query.error) {
-    hasError = true;
-  }
+  const message = context.query.message || "";
   const session = await getSession(context);
   if (session?.jwt) {
     return {
@@ -73,7 +81,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       csrfToken: await getCsrfToken(context),
-      error: hasError,
+      message,
     },
   };
 }
