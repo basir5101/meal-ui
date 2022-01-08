@@ -31,7 +31,7 @@ class StartMonth extends Component {
     return (
       <CommonLayout>
         <div>
-          <h2 className="text-4xl text-center">Start Your months</h2>
+          <h2 className="text-4xl text-center mt-6">Start Your months</h2>
           <div className="max-w-5xl mx-auto px-6 sm:px-6 lg:px-8 mb-12">
             <form>
               <div className="duration-500 transition text-center">

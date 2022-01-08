@@ -10,12 +10,12 @@ export default function SignIn({ csrfToken, message }) {
   console.log(message);
   return (
     <CommonLayout>
-      <ErrorCard
-        classN="text-center font-bold text-3xl text-blue-800"
-        title={message}
-        description="Please Login"
-      />
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="md:flex items-center justify-around min-h-screen bg-gray-100">
+        <ErrorCard
+          classN="text-center font-bold text-3xl text-blue-800"
+          title={message}
+          description="Please Login"
+        />
         <div className="px-8 py-6 mt-4 text-left bg-white shadow-lg">
           <h3 className="text-2xl font-bold text-center">
             Login to your account

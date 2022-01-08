@@ -1,20 +1,14 @@
 import { Component } from "react";
 import React, { useState } from "react";
 import Link from "next/link";
-import {
-  ArrowDown,
-  ArrowRight,
-  ArrowUp,
-  Edit,
-  Minus,
-  Plus,
-} from "react-feather";
+import { Minus, Plus } from "react-feather";
 import Moment from "react-moment";
 import moment from "moment";
 import ApiClient from "../../../components/api/ApiClient";
 import withRouter from "next/dist/client/with-router";
 import { getSession } from "next-auth/react";
 import CommonLayout from "../../../components/layout/CommonLayout";
+import Loading from "../../../components/helper/Loading";
 moment().format();
 
 class Meal extends Component {
@@ -32,6 +26,7 @@ class Meal extends Component {
           ],
         },
       ],
+      submitted: false,
     };
     this.removeMeal = this.removeMeal.bind();
     this.handleAddNewMeal = this.handleAddNewMeal.bind();
@@ -66,6 +61,9 @@ class Meal extends Component {
   };
 
   handleSubmit = async () => {
+    this.setState({
+      submitted: true,
+    });
     const data = await ApiClient.updateMeals(
       this.state.meal_details,
       this.props.meal.id
@@ -80,22 +78,21 @@ class Meal extends Component {
       <CommonLayout>
         <div className="md:container md:mx-auto mt-5">
           <div className="w-full">
-            <div className="bg-gradient-to-b from-blue-800 to-blue-600 h-96"></div>
-            <div className="max-w-5xl mx-auto px-6 sm:px-6 lg:px-8 mb-12">
-              <div className="bg-white w-full shadow rounded p-8 sm:p-12 -mt-72">
-                <p className="text-3xl font-bold text-indigo-600 leading-7 text-center">
-                  {this.props.meal.title}{" "}
+            <div className="max-w-5xl mx-auto sm:px-6 lg:px-8 mb-12">
+              <div className="bg-white w-full shadow rounded sm:p-12">
+                <p className="text-3xl uppercase font-bold text-indigo-600 leading-7 text-center">
+                  {this.props.meal.title}
                   <span className="text-blue-600">- Update Meal</span>
                 </p>
                 <form onSubmit={(e) => e.preventDefault()}>
                   {this.state.meal_details.map((name, nameIndex) => (
                     <div
                       key={nameIndex}
-                      className="m-8 rounded overflow-hidden"
+                      className="sm:m-8 mt-6 mx-2 rounded overflow-hidden"
                     >
                       <div className="group outline-none" tabIndex="1">
-                        <div className="group bg-indigo-50 flex justify-between px-4 py-3 items-center text-indigo-900 font-semibold text-xl transition ease duration-500 cursor-pointer pr-10 relative">
-                          <div className="group-focus:text-blue-800 transition ease duration-500">
+                        <div className="group bg-indigo-600 flex justify-between px-4 py-3 items-center text-indigo-900 font-semibold text-xl transition ease duration-500 cursor-pointer pr-10 relative">
+                          <div className="text-white transition ease duration-500">
                             {nameIndex + 1}. {name.name}
                           </div>
                         </div>
@@ -166,10 +163,12 @@ class Meal extends Component {
                       </div>
                     </div>
                   ))}
+                  {this.state.submitted && <Loading />}
                   <div className="flex items-center justify-center w-full">
                     <button
                       onClick={this.handleSubmit}
-                      className="mt-9 font-semibold leading-none text-white py-4 px-10 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none"
+                      disabled={this.state.submitted}
+                      className="mt-9 disabled:bg-gray-500 font-semibold leading-none text-white py-4 px-10 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none"
                     >
                       Submit
                     </button>

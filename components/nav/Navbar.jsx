@@ -158,12 +158,12 @@ function Nav() {
                     </Link>
                   </>
                 ) : (
-                  <span>
-                    <button className="hover:bg-indigo-800 text-white px-3 py-2 rounded-md text-sm font-medium">
+                  <>
+                    <span className="hover:bg-indigo-800 text-white px-3 py-2 rounded-md text-sm font-medium">
                       <span onClick={() => signOut()} className="flex">
                         <UserMinus /> <span className="ml-2">Logout</span>
                       </span>
-                    </button>
+                    </span>
                     <Link href="/user/me">
                       <a className="hover:bg-indigo-800 text-white px-3 py-2 rounded-md text-sm font-medium">
                         <span className="flex">
@@ -172,7 +172,7 @@ function Nav() {
                         </span>
                       </a>
                     </Link>
-                  </span>
+                  </>
                 )}
               </div>
             </div>

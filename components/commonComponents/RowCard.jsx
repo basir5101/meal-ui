@@ -6,7 +6,7 @@ import { Edit } from "react-feather";
 export default class RowCard extends Component {
   render() {
     return (
-      <div className="flex justify-center min-h-screen items-center bg-gray-50 p-10">
+      <div className="md:flex justify-center min-h-screen items-center bg-gray-50 p-10">
         <div>
           <Image src="/images/331.jpg" alt="my meal" height={400} width={500} />
         </div>
