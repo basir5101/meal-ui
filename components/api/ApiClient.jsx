@@ -42,7 +42,7 @@ class ApiClient {
 
   async getMealByUserId(id) {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/meals?user.id=${id}`
+      `${process.env.NEXT_PUBLIC_API_URL}/meals?user.id=${id}&_sort=id:DESC`
     );
     const data = await res.json();
     return data;

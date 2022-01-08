@@ -13,13 +13,13 @@ export default class Me extends Component {
   render() {
     return (
       <CommonLayout>
-        <div style={{ minHeight: "75vh" }}>
+        <div className="lg:w-1/2 mx-auto">
           <h1 className="text-4xl font-bold text-center text-gray-600 my-6">
             My Meals
           </h1>
           {this.props.meals.length > 0 ? (
             this.props.meals.map((meal) => (
-              <div key={meal.id} className="card h-12 bg-indigo-50">
+              <div key={meal.id} className="card py-6 my-2 bg-indigo-50">
                 <div className="mx-12">
                   <Link href={`/meals/${meal.slug}`}>
                     <a className="font-semibold uppercase text-xl text-indigo-800">
