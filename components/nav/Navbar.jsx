@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import Link from "next/link";
-import { Edit, User, UserMinus, UserPlus } from "react-feather";
+import { Book, Edit, User, UserMinus, UserPlus } from "react-feather";
 import { signOut, useSession } from "next-auth/react";
 import { Transition } from "@headlessui/react";
 
@@ -66,6 +66,14 @@ function Nav() {
                       </Link>
                     </>
                   )}
+                  <Link href="https://docs.google.com/presentation/d/1oJ8V4E3okHcEsTiwyGH8JAKXY_ID2vx5iqidHaaxM8M/edit?usp=sharing">
+                    <a className="hover:bg-indigo-800 text-white px-3 py-2 rounded-md text-sm font-medium">
+                      <span className="flex">
+                        <Book color="white" />
+                        <span className="ml-2">Read How To Use</span>
+                      </span>
+                    </a>
+                  </Link>
                 </div>
               </div>
             </div>
