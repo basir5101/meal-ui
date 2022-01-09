@@ -2,20 +2,22 @@ import { getCsrfToken } from "next-auth/react";
 import { getSession } from "next-auth/react";
 import Link from "next/link";
 
-import React from "react";
+import React, { useState } from "react";
 import ErrorCard from "../../components/helper/ErrorCard";
 import CommonLayout from "../../components/layout/CommonLayout";
 
 export default function SignIn({ csrfToken, message }) {
-  console.log(message);
+  const [showPass, setShowPass] = useState(false);
   return (
     <CommonLayout>
-      <div className="md:flex items-center justify-around min-h-screen bg-gray-100">
-        <ErrorCard
-          classN="text-center font-bold text-3xl text-blue-800"
-          title={message}
-          description="Please Login"
-        />
+      <div className="md:flex items-center justify-center min-h-screen bg-gray-100">
+        {message && (
+          <ErrorCard
+            classN="text-center font-bold text-3xl text-blue-800"
+            title={message}
+            description="Please Login"
+          />
+        )}
         <div className="px-8 py-6 mt-4 text-left bg-white shadow-lg">
           <h3 className="text-2xl font-bold text-center">
             Login to your account
@@ -35,11 +37,17 @@ export default function SignIn({ csrfToken, message }) {
                   name="email"
                 />
               </div>
-              <div className="mt-4">
+              <div className="mt-4 relative">
+                <div
+                  onClick={() => setShowPass(!showPass)}
+                  className="absolute right-6 inset-y-9 font-semibold text-gray-500"
+                >
+                  {showPass ? "hide" : "show"}
+                </div>
                 <label className="block">Password</label>
                 <input
                   name="password"
-                  type="password"
+                  type={showPass ? "text" : "password"}
                   placeholder="Password"
                   className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                 />
@@ -67,7 +75,7 @@ export default function SignIn({ csrfToken, message }) {
 }
 
 export async function getServerSideProps(context) {
-  const message = context.query.message || "";
+  const message = context.query.message || context.query.error || "";
   const session = await getSession(context);
   if (session?.jwt) {
     return {

@@ -22,6 +22,7 @@ class Singup extends Component {
       registered: false,
       submitted: false,
       error: false,
+      showPass: false,
     };
 
     this.submitForm = this.submitForm.bind(this);
@@ -99,19 +100,29 @@ class Singup extends Component {
                         onChange={(e) => this.handleInputs(e)}
                         className="w-full mr-2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 mb-5  border rounded border-gray-200"
                       />
-                      <label
-                        className="text-indigo-600 text-xl font-semibold"
-                        htmlFor="password"
-                      >
-                        Password:
-                      </label>
-                      <input
-                        type="text"
-                        name="password"
-                        placeholder="Password"
-                        onChange={(e) => this.handleInputs(e)}
-                        className="w-full mr-2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 border rounded border-gray-200"
-                      />
+                      <div className="relative">
+                        <label
+                          className="text-indigo-600 text-xl font-semibold"
+                          htmlFor="password"
+                        >
+                          Password:
+                        </label>
+                        <div
+                          onClick={() =>
+                            this.setState({ showPass: !this.state.showPass })
+                          }
+                          className="absolute right-6 inset-y-9 font-semibold text-gray-500"
+                        >
+                          {this.state.showPass ? "hide" : "show"}
+                        </div>
+                        <input
+                          type={this.state.showPass ? "text" : "password"}
+                          name="password"
+                          placeholder="Password"
+                          onChange={(e) => this.handleInputs(e)}
+                          className="w-full mr-2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 border rounded border-gray-200"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
