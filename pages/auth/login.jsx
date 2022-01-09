@@ -60,11 +60,19 @@ export default function SignIn({ csrfToken, message }) {
                   Login
                 </button>
 
-                <Link href="/auth/signup">
-                  <a className="text-sm text-blue-600 hover:underline">
-                    Create new account
-                  </a>
-                </Link>
+                <div>
+                  <Link href="/auth/signup">
+                    <a className="text-sm font-semibold text-blue-600 hover:underline">
+                      Create new account
+                    </a>
+                  </Link>
+                  <br />
+                  <Link href="/auth/reset">
+                    <a className="text-sm text-pink-600 hover:underline">
+                      Forgot Password ?
+                    </a>
+                  </Link>
+                </div>
               </div>
             </div>
           </form>

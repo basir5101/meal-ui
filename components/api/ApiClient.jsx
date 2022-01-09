@@ -175,6 +175,23 @@ class ApiClient {
         headers: headers,
       }
     );
+    return data;
+  }
+
+  async resetPassword2(args) {
+    const headers = await this.getAuthHeader();
+    let { data } = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password`,
+      {
+        code: args.code,
+        password: args.password,
+        passwordConfirmation: args.confirm_password,
+      },
+      {
+        headers: headers,
+      }
+    );
+    return data;
   }
 }
 

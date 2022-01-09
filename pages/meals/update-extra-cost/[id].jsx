@@ -9,7 +9,6 @@ moment().format();
 
 class ExtraCost extends Component {
   constructor(props) {
-    console.log(props);
     super(props);
     this.state = {
       extraCost: props.meal.extraCost || [

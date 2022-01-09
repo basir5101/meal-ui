@@ -40,9 +40,7 @@ class Singup extends Component {
       email: this.state.email,
       password: this.state.password,
     });
-    console.log(data);
     if (!data.jwt) {
-      console.log("hi");
       this.setState({
         submitted: false,
         error: true,

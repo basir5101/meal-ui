@@ -6,13 +6,16 @@ import CommonLayout from "../../components/layout/CommonLayout";
 import Link from "next/link";
 import ErrorCard from "../../components/helper/ErrorCard";
 import Loading from "../../components/helper/Loading";
+import { withRouter } from "next/router";
 
-export default class Reset extends Component {
+class ResetPassword extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: "",
+      password: "",
+      confirm_password: "",
+      code: props.code,
       error: props.error,
       done: false,
       submitted: false,
@@ -28,12 +31,9 @@ export default class Reset extends Component {
       submitted: true,
     });
     try {
-      const emailSent = await apiClient.resetPassword(this.state);
-      if (emailSent.ok) {
-        this.setState({
-          submitted: false,
-          done: true,
-        });
+      const confirm = await apiClient.resetPassword2(this.state);
+      if (confirm.jwt) {
+        this.props.router.push("/auth/signin?message=Reset Password Success");
       }
     } catch (error) {
       this.setState({ error: true });
@@ -51,6 +51,16 @@ export default class Reset extends Component {
   };
 
   render() {
+    if (!this.state.code) {
+      return (
+        <CommonLayout>
+          <ErrorCard
+            title="Code is invalid"
+            description="Reset token expired"
+          />
+        </CommonLayout>
+      );
+    }
     return (
       <CommonLayout>
         <div className="w-full">
@@ -76,12 +86,27 @@ export default class Reset extends Component {
                         className="text-indigo-600 text-xl font-semibold"
                         htmlFor="email"
                       >
-                        Email:{" "}
+                        New Password:{" "}
                       </label>
                       <input
-                        type="text"
-                        name="email"
-                        placeholder="Enter Your Email"
+                        type="password"
+                        name="password"
+                        placeholder="Enter new password"
+                        onChange={(e) => this.handleInputs(e)}
+                        className="w-full mr-2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700  border rounded border-gray-200"
+                      />
+                    </div>
+                    <div className="md:ml-6 md:mt-0">
+                      <label
+                        className="text-indigo-600 text-xl font-semibold"
+                        htmlFor="email"
+                      >
+                        Confirm New Password:
+                      </label>
+                      <input
+                        type="password"
+                        name="confirm_password"
+                        placeholder="Enter confirm password"
                         onChange={(e) => this.handleInputs(e)}
                         className="w-full mr-2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700  border rounded border-gray-200"
                       />
@@ -90,7 +115,7 @@ export default class Reset extends Component {
                 </div>
                 {this.state.error && (
                   <ErrorCard
-                    title="Registration Failed"
+                    title="Reset Failed"
                     description="please try again later"
                   />
                 )}
@@ -119,6 +144,8 @@ export default class Reset extends Component {
   }
 }
 
+export default withRouter(ResetPassword);
+
 // This is the recommended way for Next.js 9.3 or newer
 export async function getServerSideProps(context) {
   let hasError = false;
@@ -138,6 +165,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       csrfToken: await getCsrfToken(context),
+      code: context.query.code,
       error: hasError,
     },
   };
