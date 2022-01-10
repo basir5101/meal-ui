@@ -17,7 +17,7 @@ export default function MealRate({ meal }) {
     totalMeal = meals.reduce((prev, next) => prev + next);
   }
 
-  const mealRate = (totalCost / totalMeal).toFixed(2);
+  const mealRate = (totalCost / totalMeal).toFixed(1);
 
   let extraCost = 0;
   if (meal.extraCost.map((item) => item.amount).length > 0) {
@@ -100,7 +100,7 @@ export default function MealRate({ meal }) {
                       value.values
                         .map((item) => item.meal)
                         .reduce((prev, next) => prev + next)
-                    ).toFixed(2)}
+                    ).toFixed(1)}
                   </td>
                   <td className="border-r">
                     {" "}
@@ -111,7 +111,7 @@ export default function MealRate({ meal }) {
                       ? value.deposits
                           .map((item) => item.amount)
                           .reduce((prev, next) => prev + next)
-                          .toFixed(2)
+                          .toFixed(1)
                       : 0}
                   </td>
                   <td className="border-r">
@@ -129,21 +129,21 @@ export default function MealRate({ meal }) {
                             value.values
                               .map((item) => item.meal)
                               .reduce((prev, next) => prev + next)
-                              .toFixed(2) +
+                              .toFixed(1) +
                           extraCost / meal.names.length -
                           value.deposits
                             .map((item) => item.amount)
                             .reduce((prev, next) => prev + next)
-                        ).toFixed(2)
+                        ).toFixed(1)
                       : (value.deposits.length === 0 &&
                           (
                             mealRate *
                               value.values
                                 .map((item) => item.meal)
                                 .reduce((prev, next) => prev + next)
-                                .toFixed(2) +
+                                .toFixed(1) +
                             extraCost / meal.names.length
-                          ).toFixed(2)) ||
+                          ).toFixed(1)) ||
                         0}
                   </td>
                   <td>
@@ -165,7 +165,7 @@ export default function MealRate({ meal }) {
                               .map((item) => item.meal)
                               .reduce((prev, next) => prev + next) +
                             extraCost / meal.names.length)
-                        ).toFixed(2)
+                        ).toFixed(1)
                       : 0}
                   </td>
                 </tr>

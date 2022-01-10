@@ -9,6 +9,7 @@ import withRouter from "next/dist/client/with-router";
 import { getSession } from "next-auth/react";
 import CommonLayout from "../../../components/layout/CommonLayout";
 import Loading from "../../../components/helper/Loading";
+import { Disclosure, Transition } from "@headlessui/react";
 moment().format();
 
 class Meal extends Component {
@@ -90,81 +91,103 @@ class Meal extends Component {
                       key={nameIndex}
                       className="sm:m-8 mt-6 mx-2 rounded overflow-hidden"
                     >
-                      <details
-                        className="group transition outline-none"
-                        tabIndex="1"
-                      >
-                        <summary className="group bg-indigo-600 flex justify-between px-4 py-3 items-center text-indigo-900 font-semibold text-xl transition ease duration-500 cursor-pointer pr-10 relative">
-                          <div className="text-white transition ease duration-500">
-                            {nameIndex + 1}. {name.name}
-                          </div>
-                          <ArrowDown color="white" />
-                        </summary>
-                        <div className="bg-indigo-50 px-4 overflow-hidden ease duration-500">
-                          <div className="duration-500 transition">
-                            <div className="w-full mt-4 text-center flex">
-                              <label className="w-1/2 font-semibold text-indigo-700 leading-none">
-                                Date
-                              </label>
-                              <label className="w-1/2 text-indigo-700 font-semibold leading-none">
-                                Meal
-                              </label>
-                            </div>
-
-                            {name.values.map((value, mealIndex) => (
-                              <div
-                                key={mealIndex}
-                                className="w-full flex md:ml-6 md:mt-0 transition"
-                              >
-                                <input
-                                  type="date"
-                                  defaultValue={value.date}
-                                  name="date"
-                                  onChange={(e) =>
-                                    this.handleMealInputs(
-                                      e,
-                                      nameIndex,
-                                      mealIndex
-                                    )
-                                  }
-                                  className="w-1/2 mr-2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 mt-4 bg-gray-100 border rounded border-gray-200"
-                                />
-                                <input
-                                  type="number"
-                                  name="meal"
-                                  defaultValue={value.meal}
-                                  onChange={(e) =>
-                                    this.handleMealInputs(
-                                      e,
-                                      nameIndex,
-                                      mealIndex
-                                    )
-                                  }
-                                  className="w-1/2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 mt-4 bg-gray-100 border rounded border-gray-200"
-                                />
-                                <button
-                                  onClick={() =>
-                                    this.removeMeal(nameIndex, mealIndex)
-                                  }
-                                  className="text-red-600  my-5 pr-6"
-                                >
-                                  <Minus />
-                                </button>
+                      <Disclosure>
+                        {({ open }) => (
+                          <>
+                            <Disclosure.Button className="group w-full mt-2 bg-indigo-600 flex justify-between px-4 py-3 items-center text-indigo-900 font-semibold text-xl transition ease duration-500 cursor-pointer pr-10 relative">
+                              <div className="text-white transition ease duration-500">
+                                {nameIndex + 1}. {name.name}
                               </div>
-                            ))}
-                            <div className="w-full text-right">
-                              <button
-                                onClick={(e) =>
-                                  this.handleAddNewMeal(nameIndex)
-                                }
-                                className="bg-gradient-to-b from-blue-800 m-1 p-2 to-blue-600 text-white"
-                              >
-                                <Plus />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </details>
+                              <ArrowDown
+                                className={`${
+                                  open
+                                    ? "transform transition-all rotate-180"
+                                    : ""
+                                }`}
+                                color="white"
+                              />
+                            </Disclosure.Button>
+                            <Transition
+                              enter="transition duration-100 ease-out"
+                              enterFrom="transform scale-95 opacity-0"
+                              enterTo="transform scale-100 opacity-100"
+                              leave="transition duration-75 ease-out"
+                              leaveFrom="transform scale-100 opacity-100"
+                              leaveTo="transform scale-95 opacity-0"
+                            >
+                              <Disclosure.Panel>
+                                <div className="bg-indigo-50 px-4 overflow-hidden ease duration-500">
+                                  <div className="duration-500 transition">
+                                    <div className="w-full mt-4 text-center flex">
+                                      <label className="w-1/2 font-semibold text-indigo-700 leading-none">
+                                        Date
+                                      </label>
+                                      <label className="w-1/2 text-indigo-700 font-semibold leading-none">
+                                        Meal
+                                      </label>
+                                    </div>
+
+                                    {name.values.map((value, mealIndex) => (
+                                      <div
+                                        key={mealIndex}
+                                        className="w-full flex md:ml-6 md:mt-0 transition"
+                                      >
+                                        <input
+                                          type="date"
+                                          defaultValue={value.date}
+                                          name="date"
+                                          onChange={(e) =>
+                                            this.handleMealInputs(
+                                              e,
+                                              nameIndex,
+                                              mealIndex
+                                            )
+                                          }
+                                          className="w-1/2 mr-2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 mt-4 bg-gray-100 border rounded border-gray-200"
+                                        />
+                                        <input
+                                          type="number"
+                                          name="meal"
+                                          defaultValue={value.meal}
+                                          onChange={(e) =>
+                                            this.handleMealInputs(
+                                              e,
+                                              nameIndex,
+                                              mealIndex
+                                            )
+                                          }
+                                          className="w-1/2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 mt-4 bg-gray-100 border rounded border-gray-200"
+                                        />
+                                        <button
+                                          onClick={() =>
+                                            this.removeMeal(
+                                              nameIndex,
+                                              mealIndex
+                                            )
+                                          }
+                                          className="text-red-600  my-5 pr-6"
+                                        >
+                                          <Minus />
+                                        </button>
+                                      </div>
+                                    ))}
+                                    <div className="w-full text-right">
+                                      <button
+                                        onClick={(e) =>
+                                          this.handleAddNewMeal(nameIndex)
+                                        }
+                                        className="bg-gradient-to-b from-blue-800 m-1 p-2 to-blue-600 text-white"
+                                      >
+                                        <Plus />
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </Disclosure.Panel>
+                            </Transition>
+                          </>
+                        )}
+                      </Disclosure>
                     </div>
                   ))}
                   {this.state.submitted && <Loading />}

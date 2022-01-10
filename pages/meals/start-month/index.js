@@ -3,6 +3,8 @@ import { withRouter } from "next/router";
 import React, { Component } from "react";
 import ApiClient from "../../../components/api/ApiClient";
 import CommonLayout from "../../../components/layout/CommonLayout";
+import Loading from "../../../components/helper/Loading";
+import ErrorCard from "../../../components/helper/ErrorCard";
 
 class StartMonth extends Component {
   constructor(props) {
@@ -10,6 +12,8 @@ class StartMonth extends Component {
 
     this.state = {
       title: "",
+      error: false,
+      submitted: false,
     };
   }
 
@@ -21,9 +25,19 @@ class StartMonth extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    const data = await ApiClient.saveMonth(this.state.title);
-    if (data) {
-      this.props.router.push(`/meals/update-user/${data.id}`);
+    this.setState({
+      submitted: true,
+    });
+    if (this.state.title.match(/[a-z]/i) !== null) {
+      const data = await ApiClient.saveMonth(this.state.title);
+      if (data) {
+        this.props.router.push(`/meals/update-user/${data.id}`);
+      }
+    } else {
+      this.setState({
+        error: true,
+        submitted: false,
+      });
     }
   };
 
@@ -32,6 +46,9 @@ class StartMonth extends Component {
       <CommonLayout>
         <div>
           <h2 className="text-4xl text-center mt-6">Start Your months</h2>
+          {this.state.error && (
+            <ErrorCard description="Please write title in english" />
+          )}
           <div className="max-w-5xl mx-auto px-6 sm:px-6 lg:px-8 mb-12">
             <form>
               <div className="duration-500 transition text-center">
@@ -43,10 +60,12 @@ class StartMonth extends Component {
                   className="w-1/2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 mt-4  border rounded border-gray-200"
                 />
               </div>
+              {this.state.submitted && <Loading />}
               <div className="flex items-center justify-center w-full">
                 <button
+                  disabled={this.state.submitted}
                   onClick={this.handleSubmit}
-                  className="mt-9 font-semibold leading-none text-white py-4 px-10 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none"
+                  className="mt-9 disabled:bg-gray-500 font-semibold leading-none text-white py-4 px-10 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none"
                 >
                   Submit
                 </button>
