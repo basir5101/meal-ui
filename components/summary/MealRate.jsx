@@ -28,7 +28,7 @@ export default function MealRate({ meal }) {
 
   return (
     <div>
-      <div className="md:mx-5 ">
+      <div className="md:mx-5">
         <div className="ml-3 my-4">
           <div className="p-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-5">
             <div className="rounded overflow-hidden shadow-lg">
@@ -95,10 +95,12 @@ export default function MealRate({ meal }) {
                       .reduce((prev, next) => prev + next)}
                   </td>
                   <td className="border-r">
-                    {mealRate *
+                    {(
+                      mealRate *
                       value.values
                         .map((item) => item.meal)
-                        .reduce((prev, next) => prev + next)}
+                        .reduce((prev, next) => prev + next)
+                    ).toFixed(2)}
                   </td>
                   <td className="border-r">
                     {" "}
@@ -133,12 +135,14 @@ export default function MealRate({ meal }) {
                             .reduce((prev, next) => prev + next)
                         ).toFixed(2)
                       : (value.deposits.length === 0 &&
-                          mealRate *
-                            value.values
-                              .map((item) => item.meal)
-                              .reduce((prev, next) => prev + next)
-                              .toFixed(2) +
-                            extraCost / meal.names.length) ||
+                          (
+                            mealRate *
+                              value.values
+                                .map((item) => item.meal)
+                                .reduce((prev, next) => prev + next)
+                                .toFixed(2) +
+                            extraCost / meal.names.length
+                          ).toFixed(2)) ||
                         0}
                   </td>
                   <td>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Book, Edit, User, UserMinus, UserPlus } from "react-feather";
 import { signOut, useSession } from "next-auth/react";
 import { Transition } from "@headlessui/react";
+import Image from "next/image";
 
 function Nav() {
   const { data: session } = useSession();
@@ -15,7 +16,14 @@ function Nav() {
             <div className="flex items-center">
               <div className="flex items-center flex-shrink-0 text-white mr-6">
                 <Link href="/">
-                  <a className="px-12 font-semibold text-3xl">My Meal</a>
+                  <a className="pt-6 font-semibold text-3xl">
+                    <Image
+                      src="/images/web_logos.png"
+                      height={150}
+                      width={150}
+                      alt="my-meal"
+                    />
+                  </a>
                 </Link>
               </div>
               <div className="hidden md:block">
