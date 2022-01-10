@@ -111,6 +111,7 @@ export default function MealRate({ meal }) {
                       ? value.deposits
                           .map((item) => item.amount)
                           .reduce((prev, next) => prev + next)
+                          .toFixed(2)
                       : 0}
                   </td>
                   <td className="border-r">
@@ -155,15 +156,15 @@ export default function MealRate({ meal }) {
                           .map((item) => item.meal)
                           .reduce((prev, next) => prev + next) +
                         extraCost / meal.names.length
-                      ? value.deposits
-                          .map((item) => item.amount)
-                          .reduce((prev, next) => prev + next) -
-                        (
-                          mealRate *
+                      ? (
+                          value.deposits
+                            .map((item) => item.amount)
+                            .reduce((prev, next) => prev + next) -
+                          (mealRate *
                             value.values
                               .map((item) => item.meal)
                               .reduce((prev, next) => prev + next) +
-                          extraCost / meal.names.length
+                            extraCost / meal.names.length)
                         ).toFixed(2)
                       : 0}
                   </td>

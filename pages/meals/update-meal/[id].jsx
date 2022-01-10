@@ -1,7 +1,7 @@
 import { Component } from "react";
 import React, { useState } from "react";
 import Link from "next/link";
-import { Minus, Plus } from "react-feather";
+import { ArrowDown, Minus, Plus } from "react-feather";
 import Moment from "react-moment";
 import moment from "moment";
 import ApiClient from "../../../components/api/ApiClient";
@@ -90,12 +90,16 @@ class Meal extends Component {
                       key={nameIndex}
                       className="sm:m-8 mt-6 mx-2 rounded overflow-hidden"
                     >
-                      <div className="group outline-none" tabIndex="1">
-                        <div className="group bg-indigo-600 flex justify-between px-4 py-3 items-center text-indigo-900 font-semibold text-xl transition ease duration-500 cursor-pointer pr-10 relative">
+                      <details
+                        className="group transition outline-none"
+                        tabIndex="1"
+                      >
+                        <summary className="group bg-indigo-600 flex justify-between px-4 py-3 items-center text-indigo-900 font-semibold text-xl transition ease duration-500 cursor-pointer pr-10 relative">
                           <div className="text-white transition ease duration-500">
                             {nameIndex + 1}. {name.name}
                           </div>
-                        </div>
+                          <ArrowDown color="white" />
+                        </summary>
                         <div className="bg-indigo-50 px-4 overflow-hidden ease duration-500">
                           <div className="duration-500 transition">
                             <div className="w-full mt-4 text-center flex">
@@ -160,7 +164,7 @@ class Meal extends Component {
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </details>
                     </div>
                   ))}
                   {this.state.submitted && <Loading />}
