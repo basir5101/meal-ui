@@ -47,6 +47,12 @@ class ApiClient {
     const data = await res.json();
     return data;
   }
+
+  async getUser(id) {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}`);
+    const data = await res.json();
+    return data;
+  }
   async updateMeals(args, id) {
     const headers = await this.getAuthHeader();
     try {
@@ -192,6 +198,28 @@ class ApiClient {
       }
     );
     return data;
+  }
+
+  async updateUser(args, userId) {
+    const headers = await this.getAuthHeader();
+    try {
+      let { data } = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
+        {
+          favorites: [
+            {
+              link: args,
+            },
+          ],
+        },
+        {
+          headers: headers,
+        }
+      );
+      return data;
+    } catch (error) {
+      return error;
+    }
   }
 }
 

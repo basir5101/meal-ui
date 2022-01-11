@@ -1,6 +1,14 @@
 import React, { Component, useState } from "react";
 import Link from "next/link";
-import { Book, Edit, List, User, UserMinus, UserPlus } from "react-feather";
+import {
+  Book,
+  Edit,
+  Heart,
+  List,
+  User,
+  UserMinus,
+  UserPlus,
+} from "react-feather";
 import { signOut, useSession } from "next-auth/react";
 import { Transition, Menu } from "@headlessui/react";
 import Image from "next/image";
@@ -67,6 +75,14 @@ function Nav() {
                           <span className="flex">
                             <List />
                             <span className="ml-2"> My Months </span>
+                          </span>
+                        </a>
+                      </Link>
+                      <Link href="/user/favorites">
+                        <a className="hover:bg-indigo-800 text-white px-3 py-2 rounded-md text-sm font-medium">
+                          <span className="flex">
+                            <Heart />
+                            <span className="ml-2"> Favorites</span>
                           </span>
                         </a>
                       </Link>
@@ -184,6 +200,14 @@ function Nav() {
                           <span className="flex">
                             <List />
                             <span className="ml-2"> My Months </span>
+                          </span>
+                        </a>
+                      </Link>
+                      <Link href="/user/favorites">
+                        <a className="hover:bg-indigo-800 text-white px-3 py-2 rounded-md text-sm font-medium">
+                          <span className="flex">
+                            <Heart />
+                            <span className="ml-2"> Favorites</span>
                           </span>
                         </a>
                       </Link>

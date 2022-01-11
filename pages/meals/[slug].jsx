@@ -9,8 +9,22 @@ import {
   ShoppingCart,
   User,
 } from "react-feather";
+import { getSession } from "next-auth/react";
+import Router from "next/router";
+import ApiClient from "../../components/api/ApiClient";
 
 export default function meal(props) {
+  console.log(props);
+  const handleAddFavorite = async () => {
+    const session = await getSession();
+    if (session) {
+      await ApiClient.updateUser(Router.asPath, session.id);
+      Router.push("/user/favorites");
+    } else {
+      Router.push("/auth/login?error=Please Login First");
+    }
+  };
+
   return (
     <CommonLayout>
       <div className="md:container mb-48 mx-4 md:mx-auto mt-5">
@@ -64,6 +78,14 @@ export default function meal(props) {
           </div>
         </div>
         <MealRate meal={props.meal} />
+        <div className="flex items-center justify-center w-full">
+          <button
+            onClick={() => handleAddFavorite()}
+            className="mt-9  font-semibold leading-none text-white py-4 px-10 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none"
+          >
+            Add To Favorites
+          </button>
+        </div>
       </div>
     </CommonLayout>
   );

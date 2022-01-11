@@ -15,7 +15,7 @@ export default class RowCard extends Component {
             Easiest way to calculate meal
           </h2>
           <p className="my-4 text-indigo-900">
-            You information will be store for lifetime.
+            Your information will be store for lifetime.
             <br /> You can modify your data anytime.
           </p>
           <Link href="/meals/start-month">
