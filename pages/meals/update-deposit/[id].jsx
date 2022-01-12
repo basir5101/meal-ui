@@ -97,7 +97,7 @@ class Deposit extends Component {
                           Date
                         </label>
                         <label className="w-1/2 text-indigo-700 font-semibold leading-none">
-                          Meal
+                          Amount
                         </label>
                       </div>
 
