@@ -36,7 +36,7 @@ class Singup extends Component {
     event.preventDefault();
 
     const data = await ApiClient.registerUser({
-      username: this.state.username,
+      username: this.state.email,
       email: this.state.email,
       password: this.state.password,
     });
@@ -72,19 +72,6 @@ class Singup extends Component {
                 <div className="items-center transition mt-8">
                   <div className="duration-500 transition">
                     <div className="md:ml-6 md:mt-0">
-                      <label
-                        className="text-indigo-600 text-xl font-semibold"
-                        htmlFor="email"
-                      >
-                        Username:{" "}
-                      </label>
-                      <input
-                        type="text"
-                        name="username"
-                        placeholder="username"
-                        onChange={(e) => this.handleInputs(e)}
-                        className="w-full mr-2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 mb-5  border rounded border-gray-200"
-                      />
                       <label
                         className="text-indigo-600 text-xl font-semibold"
                         htmlFor="email"

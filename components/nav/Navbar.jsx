@@ -8,6 +8,7 @@ import {
   User,
   UserMinus,
   UserPlus,
+  X,
 } from "react-feather";
 import { signOut, useSession } from "next-auth/react";
 import { Transition, Menu } from "@headlessui/react";
@@ -65,11 +66,6 @@ function Nav() {
                     </>
                   ) : (
                     <>
-                      <button className="hover:bg-indigo-800 text-white px-3 py-2 rounded-md text-sm font-medium">
-                        <span onClick={() => signOut()} className="flex">
-                          <UserMinus /> <span className="ml-2">Logout</span>
-                        </span>
-                      </button>
                       <Link href="/user/me">
                         <a className="hover:bg-indigo-800 text-white px-3 py-2 rounded-md text-sm font-medium">
                           <span className="flex">
@@ -89,13 +85,23 @@ function Nav() {
                     </>
                   )}
                   <Link href="https://docs.google.com/presentation/d/1oJ8V4E3okHcEsTiwyGH8JAKXY_ID2vx5iqidHaaxM8M/edit?usp=sharing">
-                    <a className="hover:bg-indigo-800 text-white px-3 py-2 rounded-md text-sm font-medium">
+                    <a
+                      target="_blank"
+                      className="hover:bg-indigo-800 text-white px-3 py-2 rounded-md text-sm font-medium"
+                    >
                       <span className="flex">
                         <Book color="white" />
                         <span className="ml-2">Read How To Use</span>
                       </span>
                     </a>
                   </Link>
+                  {session && (
+                    <button className="hover:bg-indigo-800 text-pink-400 px-3 py-2 block rounded-md text-sm font-medium">
+                      <span onClick={() => signOut()} className="flex">
+                        <UserMinus /> <span className="ml-2">Logout</span>
+                      </span>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -108,39 +114,7 @@ function Nav() {
                 aria-expanded="false"
               >
                 <span className="sr-only">Open main menu</span>
-                {!isOpen ? (
-                  <svg
-                    className="block h-6 w-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    className="block h-6 w-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                )}
+                {!isOpen ? <List /> : <X />}
               </button>
             </div>
           </div>
@@ -159,8 +133,8 @@ function Nav() {
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <Menu.Item>
                   <Link href="/meals/start-month">
-                    <a className="text-white px-3 py-2 block rounded-md text-sm font-medium">
-                      <span className="flex hover:bg-indigo-800">
+                    <a className="hover:bg-indigo-800 text-white px-3 py-2 block rounded-md text-sm font-medium">
+                      <span className="flex">
                         <Edit color="white" />
                         <span className="ml-2">Start Calculate Meal</span>
                       </span>
@@ -173,7 +147,6 @@ function Nav() {
                       <Link href="/auth/login">
                         <a className="hover:bg-indigo-800 text-white px-3 py-2 block rounded-md text-sm font-medium">
                           <span className="flex">
-                            {" "}
                             <User /> <span className="ml-2">Login</span>
                           </span>
                         </a>
@@ -182,7 +155,6 @@ function Nav() {
                       <Link href="/auth/signup">
                         <a className="hover:bg-indigo-800 text-white px-3 py-2 block rounded-md text-sm font-medium">
                           <span className="flex">
-                            {" "}
                             <UserPlus /> <span className="ml-2">Sign up</span>
                           </span>
                         </a>
@@ -190,11 +162,6 @@ function Nav() {
                     </>
                   ) : (
                     <>
-                      <button className="hover:bg-indigo-800 text-pink-300 px-3 py-2 block rounded-md text-sm font-medium">
-                        <span onClick={() => signOut()} className="flex">
-                          <UserMinus /> <span className="ml-2">Logout</span>
-                        </span>
-                      </button>
                       <Link href="/user/me">
                         <a className="hover:bg-indigo-800 text-white px-3 py-2 block rounded-md text-sm font-medium">
                           <span className="flex">
@@ -204,7 +171,7 @@ function Nav() {
                         </a>
                       </Link>
                       <Link href="/user/favorites">
-                        <a className="hover:bg-indigo-800 text-white px-3 py-2 rounded-md text-sm font-medium">
+                        <a className="hover:bg-indigo-800 text-white px-3 py-2 block rounded-md text-sm font-medium">
                           <span className="flex">
                             <Heart />
                             <span className="ml-2"> Favorites</span>
@@ -216,7 +183,7 @@ function Nav() {
                 </Menu.Item>
                 <Menu.Item>
                   <Link href="https://docs.google.com/presentation/d/1oJ8V4E3okHcEsTiwyGH8JAKXY_ID2vx5iqidHaaxM8M/edit?usp=sharing">
-                    <a className="hover:bg-indigo-800 text-white px-3 my-1 block rounded-md text-sm font-medium">
+                    <a className="hover:bg-indigo-800 text-white px-3 py-2 block rounded-md text-sm font-medium">
                       <span className="flex">
                         <Book color="white" />
                         <span className="ml-2">Read How To Use</span>
@@ -224,6 +191,15 @@ function Nav() {
                     </a>
                   </Link>
                 </Menu.Item>
+                {session && (
+                  <Menu.Item>
+                    <button className="hover:bg-indigo-800 text-pink-400 px-3 py-2 block rounded-md text-sm font-medium">
+                      <span onClick={() => signOut()} className="flex">
+                        <UserMinus /> <span className="ml-2">Logout</span>
+                      </span>
+                    </button>
+                  </Menu.Item>
+                )}
               </div>
             </div>
           </Menu.Items>

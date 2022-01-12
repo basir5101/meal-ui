@@ -166,7 +166,7 @@ export default withRouter(Deposit);
 
 export async function getServerSideProps(context) {
   const id = context.query.id;
-  const res = await fetch(`http://localhost:1337/meals/${id}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/meals/${id}`);
   const data = await res.json();
   return {
     props: {
