@@ -24,10 +24,10 @@ function Nav() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <Link href="/">
-                <a className="md:pt-6 font-semibold text-3xl">
+                <a className=" font-semibold text-3xl">
                   <Image
-                    src="/images/web_logos.png"
-                    height={150}
+                    src="/images/logo.png"
+                    height={60}
                     width={150}
                     alt="my-meal"
                   />
@@ -43,7 +43,14 @@ function Nav() {
                       </span>
                     </a>
                   </Link>
-
+                  {/* <Link href="/meals/make-shopping-list">
+                    <a className="hover:bg-indigo-800 text-white px-3 py-2 rounded-md text-sm font-medium">
+                      <span className="flex">
+                        <Edit color="white" />{" "}
+                        <span className="ml-2">Make Shopping List</span>
+                      </span>
+                    </a>
+                  </Link> */}
                   {!session ? (
                     <>
                       <Link href="/auth/login">

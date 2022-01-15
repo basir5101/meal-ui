@@ -19,12 +19,12 @@ export default class Me extends Component {
           </h1>
           {this.props.meals.length > 0 ? (
             this.props.meals.map((meal) => (
-              <div key={meal.id} className="card py-6 my-2 bg-indigo-50">
-                <div className="mx-12">
+              <div key={meal.id} className="my-6">
+                <div className="mx-12 ">
                   <Link href={`/meals/${meal.slug}`}>
-                    <a className="font-semibold uppercase text-xl text-indigo-800">
+                    <a className="font-semibold bg-purple-50 px-6 shadow-md hover:text-white transition  py-6 block hover:bg-indigo-600 uppercase text-xl text-indigo-800">
                       <h2>
-                        <span className="mr-6"> 👍 </span> {meal.title}
+                        <span className="pr-6"> 👍 </span> {meal.title}
                       </h2>
                     </a>
                   </Link>

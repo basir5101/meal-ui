@@ -18,6 +18,25 @@ class ApiClient {
     return header;
   }
 
+  async saveShoppingList(args) {
+    console.log(args);
+    const headers = await this.getAuthHeader();
+    try {
+      let { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/shopping-lists`,
+
+        args,
+
+        {
+          headers,
+        }
+      );
+      return data;
+    } catch (error) {
+      return false;
+    }
+  }
+
   async saveMonth(title) {
     const headers = await this.getAuthHeader();
     try {
