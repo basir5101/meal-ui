@@ -20,7 +20,24 @@ export default function Home(props) {
   );
 }
 
-export async function getStaticProps(context) {
+// export async function getStaticProps(context) {
+//   const res = await fetch(
+//     `${process.env.NEXT_PUBLIC_API_URL}/meals?_limit=6&_sort=id:DESC`
+//   );
+//   const data = await res.json();
+
+//   return {
+//     props: {
+//       data,
+//     },
+//     revalidate: 100, // will be passed to the page component as props
+//   };
+// }
+
+// This function gets called at build time on server-side.
+// It may be called again, on a serverless function, if
+// revalidation is enabled and a new request comes in
+export async function getStaticProps() {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/meals?_limit=6&_sort=id:DESC`
   );
@@ -28,8 +45,12 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      data,
+      data, // will be passed to the page component as props
     },
-    revalidate: 100, // will be passed to the page component as props
+
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every second
+    revalidate: 100, // In seconds
   };
 }
