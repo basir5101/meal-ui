@@ -21,12 +21,15 @@ export default function Home(props) {
 }
 
 export async function getStaticProps(context) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/meals`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/meals?_limit=6&_sort=id:DESC`
+  );
   const data = await res.json();
 
   return {
     props: {
       data,
-    }, // will be passed to the page component as props
+    },
+    revalidate: 100, // will be passed to the page component as props
   };
 }

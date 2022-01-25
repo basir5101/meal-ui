@@ -90,7 +90,7 @@ export default function meal(props) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const slug = context.query.slug;
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/meals?slug=${slug}`

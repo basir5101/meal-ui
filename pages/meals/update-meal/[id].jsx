@@ -212,7 +212,7 @@ class Meal extends Component {
 
 export default withRouter(Meal);
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const id = context.query.id;
   const data = await ApiClient.getMealById(id);
   const session = await getSession(context);
