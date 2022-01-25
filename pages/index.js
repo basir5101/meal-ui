@@ -20,7 +20,7 @@ export default function Home(props) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/meals?_limit=6&_sort=id:DESC`
   );
@@ -30,5 +30,10 @@ export async function getServerSideProps() {
     props: {
       data, // will be passed to the page component as props
     },
+
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every second
+    revalidate: 100, // In seconds
   };
 }

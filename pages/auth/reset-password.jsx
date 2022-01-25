@@ -147,7 +147,7 @@ class ResetPassword extends Component {
 export default withRouter(ResetPassword);
 
 // This is the recommended way for Next.js 9.3 or newer
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   let hasError = false;
   if (context.query && context.query.error) {
     hasError = true;

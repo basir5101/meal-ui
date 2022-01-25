@@ -52,7 +52,7 @@ export default class Me extends Component {
   }
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   let meals = [];
   const session = await getSession(context);
   if (session) {
