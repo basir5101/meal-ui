@@ -20,7 +20,7 @@ export default function Home(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/meals?_limit=6&_sort=id:DESC`
   );
@@ -36,20 +36,4 @@ export async function getStaticProps() {
     // - At most once every second
     revalidate: 100, // In seconds
   };
-}
-
-export async function getStaticPaths() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/meals?_limit=6&_sort=id:DESC`
-  );
-  const data = await res.json();
-  // Get the paths we want to pre-render based on posts
-  const paths = data.map((data) => ({
-    params: { id: data.slug },
-  }));
-
-  // We'll pre-render only these paths at build time.
-  // { fallback: blocking } will server-render pages
-  // on-demand if the path doesn't exist.
-  return { paths, fallback: "blocking" };
 }
