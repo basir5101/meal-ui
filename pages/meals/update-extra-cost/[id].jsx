@@ -156,7 +156,7 @@ class ExtraCost extends Component {
 
 export default withRouter(ExtraCost);
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const id = context.query.id;
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/meals/${id}`);
   const data = await res.json();

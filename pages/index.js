@@ -18,7 +18,7 @@ export default function Home(props) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/meals`);
   const data = await res.json();
 

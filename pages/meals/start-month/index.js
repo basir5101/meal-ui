@@ -80,7 +80,7 @@ class StartMonth extends Component {
 
 export default withRouter(StartMonth);
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const session = await getSession(context);
   if (!session) {
     return {
