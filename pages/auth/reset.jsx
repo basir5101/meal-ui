@@ -120,7 +120,7 @@ export default class Reset extends Component {
 }
 
 // This is the recommended way for Next.js 9.3 or newer
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   let hasError = false;
   if (context.query && context.query.error) {
     hasError = true;

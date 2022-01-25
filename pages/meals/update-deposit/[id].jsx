@@ -164,7 +164,7 @@ class Deposit extends Component {
 
 export default withRouter(Deposit);
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const id = context.query.id;
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/meals/${id}`);
   const data = await res.json();

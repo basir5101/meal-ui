@@ -14,7 +14,6 @@ import Router from "next/router";
 import ApiClient from "../../components/api/ApiClient";
 
 export default function meal(props) {
-  console.log(props);
   const handleAddFavorite = async () => {
     const session = await getSession();
     if (session) {
@@ -91,7 +90,7 @@ export default function meal(props) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const slug = context.query.slug;
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/meals?slug=${slug}`

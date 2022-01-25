@@ -19,7 +19,6 @@ class ApiClient {
   }
 
   async saveShoppingList(args) {
-    console.log(args);
     const headers = await this.getAuthHeader();
     try {
       let { data } = await axios.post(

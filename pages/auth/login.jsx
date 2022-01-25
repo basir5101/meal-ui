@@ -82,7 +82,7 @@ export default function SignIn({ csrfToken, message }) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const message = context.query.message || context.query.error || "";
   const session = await getSession(context);
   if (session?.jwt) {

@@ -4,8 +4,8 @@ import { Edit, Facebook, GitHub, Linkedin, MessageSquare } from "react-feather";
 
 export default function Footer() {
   return (
-    <footer>
-      <div className="bg-indigo-900 lg:fixed w-full bottom-0 lg:mt-48 text-gray-200 sm:flex justify-center">
+    <footer className="relative">
+      <div className="bg-indigo-900  w-full  text-gray-200 sm:flex justify-center">
         <div className="text-2xl my-5 font-semibold">
           <p>Contact: </p>
         </div>

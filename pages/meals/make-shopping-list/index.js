@@ -63,7 +63,6 @@ class ShoppingList extends Component {
       shoppings: this.state.shoppings,
     });
     if (data.id) {
-      console.log(data);
       // this.props.router.push(`/meals/${data.slug}`);
     }
   };

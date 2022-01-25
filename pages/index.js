@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import Cards from "../components/Cards/Cards";
 import RowCard from "../components/commonComponents/RowCard";
 import CommonLayout from "../components/layout/CommonLayout";
 
@@ -13,6 +14,7 @@ export default function Home(props) {
 
       <main>
         <RowCard />
+        <Cards meals={props.data} />
       </main>
     </CommonLayout>
   );
