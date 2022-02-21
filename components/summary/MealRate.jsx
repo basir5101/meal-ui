@@ -134,6 +134,7 @@ export default function MealRate({ meal }) {
                           value.deposits
                             .map((item) => item.amount)
                             .reduce((prev, next) => prev + next)
+                            .toFixed(1)
                         ).toFixed(1)
                       : (value.deposits.length === 0 &&
                           (

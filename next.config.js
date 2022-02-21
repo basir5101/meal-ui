@@ -1,7 +1,7 @@
 module.exports = {
   env: {
     NEXT_PUBLIC_API_URL:
-      process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337",
+      process.env.NEXT_PUBLIC_API_URL || "https://our-meals.herokuapp.com",
     NEXTAUTH_URL: process.env.NEXTAUTH_URL || "http://localhost:3000",
   },
   future: {
