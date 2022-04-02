@@ -103,8 +103,7 @@ export default function MealRate({ meal }) {
                     ).toFixed(1)}
                   </td>
                   <td className="border-r">
-                    {" "}
-                    {extraCost / meal.names.length}{" "}
+                    {(extraCost / meal.names.length).toFixed(1)}
                   </td>
                   <td className="border-r">
                     {value.deposits.length > 0
@@ -171,6 +170,14 @@ export default function MealRate({ meal }) {
                   </td>
                 </tr>
               ))}
+              <tr className="border-t">
+                <td className="border-r font-bold">Total: </td>
+                <td className="py-3 border-r font-bold"> {totalMeal || 0}</td>
+                <td className="py-3 border-r font-bold"> {totalCost || 0}</td>
+                <td className="py-3 border-r font-bold"> {totalCost || 0}</td>
+                <td className="py-3 border-r font-bold"> </td>
+                <td className="py-3 border-r font-bold"> </td>
+              </tr>
             </tbody>
           </table>
         </div>
