@@ -12,11 +12,17 @@ export default function MealRate({ meal }) {
     name.values.map((value) => value.meal).reduce((prev, next) => prev + next)
   );
 
-  const deposits = meal.names.map((name) =>
-    name.deposits
-      .map((deposit) => deposit.amount)
-      .reduce((prev, next) => prev + next)
-  );
+  let deposits = 0;
+
+  try {
+    deposits = meal.names.map((name) =>
+      name.deposits
+        .map((deposit) => deposit.amount)
+        .reduce((prev, next) => prev + next)
+    );
+  } catch (error) {
+    deposits = 0;
+  }
 
   let totalMeal = 0;
   if (meals.length > 0) {
