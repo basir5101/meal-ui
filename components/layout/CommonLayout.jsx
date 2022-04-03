@@ -10,7 +10,7 @@ export default function CommonLayout(props) {
         {props.preContainer && props.preContainer}
         {props.children}
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

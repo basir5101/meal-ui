@@ -12,17 +12,19 @@ import {
 import { getSession } from "next-auth/react";
 import Router from "next/router";
 import ApiClient from "../../components/api/ApiClient";
+import { FacebookShareButton, FacebookIcon } from "next-share";
+import { WhatsappShareButton, WhatsappIcon } from "next-share";
+import {
+  FacebookMessengerShareButton,
+  FacebookMessengerIcon,
+} from "next-share";
+import { EmailShareButton, EmailIcon } from "next-share";
+
+import { useRouter } from "next/router";
 
 export default function meal(props) {
-  const handleAddFavorite = async () => {
-    const session = await getSession();
-    if (session) {
-      await ApiClient.updateUser(Router.asPath, session.id);
-      Router.push("/user/favorites");
-    } else {
-      Router.push("/auth/login?error=Please Login First");
-    }
-  };
+  const router = useRouter();
+  console.log(`${process.env.NEXTAUTH_URL}${router.asPath}`);
 
   return (
     <CommonLayout>
@@ -77,13 +79,33 @@ export default function meal(props) {
           </div>
         </div>
         <MealRate meal={props.meal} />
-        <div className="flex items-center justify-center w-full">
-          <button
-            onClick={() => handleAddFavorite()}
-            className="mt-9  font-semibold leading-none text-white py-4 px-10 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none"
+        <div className="flex items-center justify-center border py-3 mt-14 w-full">
+          <span className="text-lg font-semibold text-indigo-700 mr-6">
+            Share with Friends:{" "}
+          </span>
+          <FacebookShareButton
+            url={`https://meal-ui.vercel.app${router.asPath}`}
+            quote={"Here's our this month meal calculation"}
+            hashtag={"#mealCalculation"}
           >
-            Add To Favorites
-          </button>
+            <FacebookIcon size={32} round />
+          </FacebookShareButton>{" "}
+          <span className="mx-2"></span>
+          <WhatsappShareButton
+            url={`https://meal-ui.vercel.app${router.asPath}`}
+            title={"Here's our this month meal calculation"}
+            separator=":: "
+          >
+            <WhatsappIcon size={32} round />
+          </WhatsappShareButton>
+          <span className="mx-2"></span>
+          <EmailShareButton
+            url={`https://meal-ui.vercel.app${router.asPath}`}
+            subject={"Meals for this months"}
+            body="This is our meal calculation for this months."
+          >
+            <EmailIcon size={32} round />
+          </EmailShareButton>
         </div>
       </div>
     </CommonLayout>

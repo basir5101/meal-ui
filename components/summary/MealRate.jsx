@@ -12,11 +12,21 @@ export default function MealRate({ meal }) {
     name.values.map((value) => value.meal).reduce((prev, next) => prev + next)
   );
 
+  const deposits = meal.names.map((name) =>
+    name.deposits
+      .map((deposit) => deposit.amount)
+      .reduce((prev, next) => prev + next)
+  );
+
   let totalMeal = 0;
   if (meals.length > 0) {
     totalMeal = meals.reduce((prev, next) => prev + next);
   }
 
+  let totalDeposits = 0;
+  if (deposits.length > 0) {
+    totalDeposits = deposits.reduce((prev, next) => prev + next);
+  }
   const mealRate = (totalCost / totalMeal).toFixed(1);
 
   let extraCost = 0;
@@ -30,27 +40,7 @@ export default function MealRate({ meal }) {
     <div>
       <div className="md:mx-5">
         <div className="ml-3 my-4">
-          <div className="p-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-5">
-            <div className="rounded overflow-hidden shadow-lg">
-              <div className="px-6 h-32 text-center flex flex-col align-middle justify-center py-4">
-                <div className="font-bold text-indigo-500 text-xl mb-2">
-                  Total Meals
-                </div>
-                <p className="text-gray-700 font-bold text-3xl">
-                  {totalMeal || 0}
-                </p>
-              </div>
-            </div>
-            <div className="rounded overflow-hidden shadow-lg">
-              <div className="px-6 h-32 text-center flex flex-col align-middle justify-center py-4">
-                <div className="font-bold text-indigo-500 text-xl mb-2">
-                  Total Costs
-                </div>
-                <p className="text-gray-700 font-bold text-3xl">
-                  {totalCost || 0}
-                </p>
-              </div>
-            </div>
+          <div className="p-10  gap-5">
             <div className="rounded overflow-hidden shadow-lg">
               <div className="px-6 h-32 text-center flex flex-col align-middle justify-center py-4">
                 <div className="font-bold text-indigo-500 text-xl mb-2">
@@ -58,16 +48,6 @@ export default function MealRate({ meal }) {
                 </div>
                 <p className="text-gray-700 font-bold text-3xl">
                   {mealRate || 0}
-                </p>
-              </div>
-            </div>
-            <div className="rounded overflow-hidden shadow-lg">
-              <div className="px-6 h-32 text-center flex flex-col align-middle justify-center py-4">
-                <div className="font-bold text-indigo-500 text-xl mb-2">
-                  Total Extra Costs
-                </div>
-                <p className="text-gray-700 font-bold text-3xl">
-                  {extraCost || 0}
                 </p>
               </div>
             </div>
@@ -174,8 +154,10 @@ export default function MealRate({ meal }) {
                 <td className="border-r font-bold">Total: </td>
                 <td className="py-3 border-r font-bold"> {totalMeal || 0}</td>
                 <td className="py-3 border-r font-bold"> {totalCost || 0}</td>
-                <td className="py-3 border-r font-bold"> {totalCost || 0}</td>
-                <td className="py-3 border-r font-bold"> </td>
+                <td className="py-3 border-r font-bold"> {extraCost || 0} </td>
+                <td className="py-3 border-r font-bold">
+                  {totalDeposits || 0}
+                </td>
                 <td className="py-3 border-r font-bold"> </td>
               </tr>
             </tbody>
