@@ -172,6 +172,17 @@ class ApiClient {
     }
   }
 
+  async googleLogin(token) {
+    try {
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/google/callback?access_token=${token}`
+      );
+      return data;
+    } catch (error) {
+      return error.response.status;
+    }
+  }
+
   async registerUser(args) {
     const headers = await this.getAuthHeader();
     try {

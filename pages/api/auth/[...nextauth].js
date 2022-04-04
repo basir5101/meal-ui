@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
+import ApiClient from "../../../components/api/ApiClient";
 
 const options = {
   pages: {
@@ -13,17 +14,16 @@ const options = {
       credentials: {
         email: { label: "Email", type: "text", placeholder: "test@test.com" },
         password: { label: "Password", type: "password" },
+        access_token: { label: "Password", type: "text" },
       },
       async authorize(credentials) {
         try {
           if (credentials.access_token) {
-            const data = await ApiClient.facebookLogin(
-              credentials.access_token
-            );
+            const data = await ApiClient.googleLogin(credentials.access_token);
             if (data.user.confirmed) {
               return data;
             } else {
-              throw new Error(` Facebook Login Problem `);
+              throw new Error(` Google Login Problem `);
             }
           } else {
             const { data } = await axios.post(

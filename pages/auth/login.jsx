@@ -3,6 +3,7 @@ import { getSession } from "next-auth/react";
 import Link from "next/link";
 
 import React, { useState } from "react";
+import { Eye, EyeOff } from "react-feather";
 import ErrorCard from "../../components/helper/ErrorCard";
 import CommonLayout from "../../components/layout/CommonLayout";
 
@@ -18,8 +19,8 @@ export default function SignIn({ csrfToken, message }) {
             description="Please Login"
           />
         )}
-        <div className="px-8 py-6 mt-4 text-left bg-white shadow-lg">
-          <h3 className="text-2xl font-bold text-center">
+        <div className="px-12 lg:w-1/2 py-6 mt-4 text-left bg-white shadow-lg">
+          <h3 className="text-2xl text-indigo-600 font-bold text-center">
             Login to your account
           </h3>
           <form method="post" action="/api/auth/callback/credentials">
@@ -40,9 +41,9 @@ export default function SignIn({ csrfToken, message }) {
               <div className="mt-4 relative">
                 <div
                   onClick={() => setShowPass(!showPass)}
-                  className="absolute right-6 inset-y-9 font-semibold text-gray-500"
+                  className="absolute right-6 inset-y-10 font-semibold text-gray-500"
                 >
-                  {showPass ? "hide" : "show"}
+                  {showPass ? <Eye /> : <EyeOff />}
                 </div>
                 <label className="block">Password</label>
                 <input
@@ -76,6 +77,18 @@ export default function SignIn({ csrfToken, message }) {
               </div>
             </div>
           </form>
+          <div>
+            <div className="text-center">
+              <Link
+                href="https://our-meals.herokuapp.com/connect/google"
+                passHref={true}
+              >
+                <a className="border rounded-md hover:bg-indigo-700 transition px-10 py-3 my-12 text-center bg-indigo-900 text-white">
+                  Login With Google
+                </a>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </CommonLayout>

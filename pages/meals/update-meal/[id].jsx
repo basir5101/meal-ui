@@ -28,6 +28,11 @@ class Meal extends Component {
         },
       ],
       submitted: false,
+      warning: {
+        delete: false,
+        nameIndex: null,
+        mealIndex: null,
+      },
     };
     this.removeMeal = this.removeMeal.bind();
     this.handleAddNewMeal = this.handleAddNewMeal.bind();
@@ -55,9 +60,13 @@ class Meal extends Component {
   };
 
   removeMeal = (nameIndex, mealIndex) => {
-    this.state.meal_details[nameIndex].values.splice(mealIndex, 1);
+    const newMeal = this.state.meal_details[nameIndex].values.filter(
+      (value, index) => index !== mealIndex
+    );
+    let meals = [...this.state.meal_details];
+    meals[nameIndex].values = newMeal;
     this.setState({
-      meal_details: this.state.meal_details,
+      meal_details: meals,
     });
   };
 
@@ -72,6 +81,16 @@ class Meal extends Component {
     if (data.id) {
       this.props.router.push(`/meals/${data.slug}`);
     }
+  };
+
+  removingConformation = (name, meal) => {
+    this.setState({
+      warning: {
+        delete: true,
+        nameIndex: name,
+        mealIndex: meal,
+      },
+    });
   };
 
   render() {
@@ -116,7 +135,7 @@ class Meal extends Component {
                               leaveTo="transform scale-95 opacity-0"
                             >
                               <Disclosure.Panel>
-                                <div className="bg-indigo-50 px-4 overflow-hidden ease duration-500">
+                                <div className="bg-indigo-50 relative px-4 overflow-hidden ease duration-500">
                                   <div className="duration-500 transition">
                                     <div className="w-full mt-4 text-center flex">
                                       <label className="w-1/2 font-semibold text-indigo-700 leading-none">
@@ -132,6 +151,40 @@ class Meal extends Component {
                                         key={mealIndex}
                                         className="w-full flex md:ml-6 md:mt-0 transition"
                                       >
+                                        {this.state.warning.delete &&
+                                          nameIndex ===
+                                            this.state.warning.nameIndex &&
+                                          mealIndex ===
+                                            this.state.warning.mealIndex && (
+                                            <p className="text-pink-800 pl-3 absolute w-full mr-2 leading-none  focus:outline-none focus:border-blue-700 mt-4 bg-gray-100 border rounded border-gray-200">
+                                              Want to delete ?{" "}
+                                              <button
+                                                onClick={() =>
+                                                  this.removeMeal(
+                                                    nameIndex,
+                                                    mealIndex
+                                                  )
+                                                }
+                                                className="px-10 text-white rounded-md mx-3 py-4 bg-pink-900"
+                                              >
+                                                Yes
+                                              </button>
+                                              <button
+                                                onClick={() => {
+                                                  this.setState({
+                                                    warning: {
+                                                      delete: false,
+                                                      mealIndex: null,
+                                                      nameIndex: null,
+                                                    },
+                                                  });
+                                                }}
+                                                className="px-10 text-white rounded-md mx-3 py-4 bg-indigo-600 "
+                                              >
+                                                No
+                                              </button>
+                                            </p>
+                                          )}
                                         <input
                                           type="date"
                                           defaultValue={value.date}
@@ -160,7 +213,7 @@ class Meal extends Component {
                                         />
                                         <button
                                           onClick={() =>
-                                            this.removeMeal(
+                                            this.removingConformation(
                                               nameIndex,
                                               mealIndex
                                             )
@@ -171,6 +224,7 @@ class Meal extends Component {
                                         </button>
                                       </div>
                                     ))}
+
                                     <div className="w-full text-right">
                                       <button
                                         onClick={(e) =>

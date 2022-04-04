@@ -18,9 +18,11 @@ class Name extends Component {
         },
       ],
       submitted: false,
+      warning: {
+        delete: false,
+        index: null,
+      },
     };
-    this.removeShopping = this.removeShopping.bind();
-    this.handleAddNewShopping = this.handleAddNewShopping.bind();
   }
 
   handleShoppingInputs = (event, shopIndex) => {
@@ -41,16 +43,25 @@ class Name extends Component {
           meal: 0,
         },
       ],
+      deposits: [
+        {
+          date: moment(new Date()).format("YYYY-MM-DD"),
+          amount: 0,
+        },
+      ],
     });
     this.setState({
-      meal_details: this.state.names,
+      names: this.state.names,
     });
   };
 
   removeShopping = (shopIndex) => {
-    this.state.names.splice(shopIndex, 1);
     this.setState({
-      names: this.state.names,
+      names: this.state.names.filter((value, index) => index !== shopIndex),
+      warning: {
+        delete: false,
+        id: null,
+      },
     });
   };
 
@@ -67,10 +78,19 @@ class Name extends Component {
     }
   };
 
+  removingConformation = (index) => {
+    this.setState({
+      warning: {
+        delete: true,
+        index: index,
+      },
+    });
+  };
+
   render() {
     return (
       <CommonLayout className="md:container md:mx-auto mt-5">
-        <div className="md:w-1/2 mx-auto w-full">
+        <div className="md:w-1/2 mx-auto  w-full">
           <div className="bg-white w-full shadow rounded p-2 my-6 sm:p-12">
             <p className="text-3xl font-bold text-indigo-600 leading-7 text-center">
               {this.props.meal.title}
@@ -88,7 +108,7 @@ class Name extends Component {
                   {this.state.names.map((name, nameIndex) => (
                     <div
                       key={nameIndex}
-                      className="w-full flex md:ml-6 md:mt-0 transition"
+                      className="w-full flex md:ml-6 md:mt-0 transition relative"
                     >
                       <input
                         type="text"
@@ -100,8 +120,31 @@ class Name extends Component {
                         }
                         className="w-full mr-2 leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 mt-4 bg-gray-100 border rounded border-gray-200"
                       />
+
+                      {this.state.warning.delete &&
+                        nameIndex === this.state.warning.index && (
+                          <p className="text-pink-800 pl-3 absolute w-full mr-2 leading-none  focus:outline-none focus:border-blue-700 mt-4 bg-gray-100 border rounded border-gray-200">
+                            Want to delete ?{" "}
+                            <button
+                              onClick={() => this.removeShopping(nameIndex)}
+                              className="px-10 text-white rounded-md mx-3 py-4 bg-pink-900"
+                            >
+                              Yes
+                            </button>
+                            <button
+                              onClick={() => {
+                                this.setState({
+                                  warning: { delete: false, index: null },
+                                });
+                              }}
+                              className="px-10 text-white rounded-md mx-3 py-4 bg-indigo-600 "
+                            >
+                              No
+                            </button>
+                          </p>
+                        )}
                       <button
-                        onClick={() => this.removeShopping(nameIndex)}
+                        onClick={() => this.removingConformation(nameIndex)}
                         className="text-red-600  my-5"
                       >
                         <Minus />
