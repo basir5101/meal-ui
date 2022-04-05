@@ -78,7 +78,7 @@ export default function SignIn({ csrfToken, message }) {
             </div>
           </form>
           <div>
-            <div className="text-center">
+            <div className="text-center my-10 ">
               <Link
                 href="https://our-meals.herokuapp.com/connect/google"
                 passHref={true}
